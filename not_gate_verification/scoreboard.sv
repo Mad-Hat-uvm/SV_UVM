@@ -3,7 +3,7 @@ class scoreboard extends uvm_scoreboard;
 
     uvm_analysis_imp #(seq_item, scoreboard) item_collect_export;
 
-    function new(string name="env", uvm_component parent=null);
+    function new(string name="scoreboard", uvm_component parent=null);
         super.new(name, parent);
 
         item_collect_export = new("item_collect_export", this);
