@@ -28,7 +28,7 @@ class driver extends uvm_driver#(seq_item);
                 `uvm_fatal(get_type_name(), "Virtual interface (vif) not set")
             end
 
-            `uvm_info(get_type_name(), $sformat("IN = %0d", req.in), UVM_LOW);
+            `uvm_info(get_type_name(), $sformatf("IN = %0d", req.in), UVM_LOW);
 
             vif.in <= req.in;
 
@@ -38,5 +38,5 @@ class driver extends uvm_driver#(seq_item);
         end
 
     endtask
-    
+
 endclass
