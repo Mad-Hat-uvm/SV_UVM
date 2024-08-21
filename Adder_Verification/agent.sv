@@ -2,7 +2,7 @@ class a_agent extends uvm_agent;
   `uvm_component_utils(a_agent)
 
   driver drv;
-  sequencer sqr;
+  seqr sqr;
   monitor mon;
 
   function new(string name = "a_agent", uvm_component parent = null);
@@ -13,7 +13,7 @@ class a_agent extends uvm_agent;
     super.build_phase(phase);
     if(get_is_active() == UVM_ACTIVE) begin
       drv = driver::type_id::create("drv", this);
-      sqr = sequencer::type_id::create("drv", this);
+      sqr = seqr::type_id::create("drv", this);
       `uvm_info(get_type_name(), "This is a Active Agent", UVM_LOW);
     end
       mon = monitor::type_id::create("drv", this);
