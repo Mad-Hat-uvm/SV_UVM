@@ -19,7 +19,13 @@ class monitor extends uvm_monitor;
 
   task run_phase(uvm_phase phase);
     forever begin
-      #Sample the DUT information and translate into transaction
+      wait(!vif.reset);
+      @(posedge vif.clk);
+      mon_item.ip1 <= vif.ip1;
+      mon_item.ip2 <= vif.ip2;
+      `uvm_info(get_type_name(), $sformatf("ip1 = %0d, ip2 = %0d", mon_item.ip1, mon_item.ip2), UVM_HIGH);
+      @(posedge vif.clk);
+        mon_item.out <= vif.out;
       item_collect_port.write(mon_item);
     end
   endtask
