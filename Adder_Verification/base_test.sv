@@ -14,16 +14,13 @@ class base_test extends uvm_test;
     super.build_phase(phase);
 
     env_o = env::type_id::create("env", this);
+    bseq = base_seq::type_id::create("SEQ",this);
   endfunction
 
   task run_phase(uvm_phase phase);
     phase.raise_objection(this);
-    bseq = base_seq::type_id::create("bseq", this);
-
-    repeat(10)begin
-      #5;
-      bseq.start(env_o.agt.sqr);
-    end
+    bseq.start(env_o.agt.sqr);
+    #60;
     phase.drop_objection(this);
 
     `uvm_info(get_type_name(), "End of testcase", UVM_LOW);
