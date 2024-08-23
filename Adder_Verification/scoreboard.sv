@@ -10,12 +10,12 @@ class scoreboard extends uvm_scoreboard;
     item_collect_export = new("item_collect_export", this);
   endfunction
 
-  function void build_phase(uvm_phase phase);
+  virtual function void build_phase(uvm_phase phase);
     super.build_phase(phase);
     sb_item = seq_item::type_id::create("TRANS");
   endfunction
 
-  function void write(input seq_item req);
+ virtual function void write(input seq_item req);
     item_q.push_back(req);
   endfunction
 
