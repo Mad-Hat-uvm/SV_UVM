@@ -1,4 +1,4 @@
-class base_seq extends uvm_sequencer #(seq_item);
+class base_seq extends uvm_sequence#(seq_item);
   `uvm_object_utils(base_seq)
 
    seq_item req;
