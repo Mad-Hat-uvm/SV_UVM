@@ -11,6 +11,9 @@ class driver extends uvm_driver#(seq_item);
 /////////////////////reset logic//////////////////////
 task reset_dut();
  vif.reset <= 1'b1;
+ vif.ip1   <= 0;
+ vif.ip2.  <= 0;
+ repeat(5) @(posedge vif.)
  
 endtask
 
