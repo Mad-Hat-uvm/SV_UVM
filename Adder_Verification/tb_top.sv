@@ -20,7 +20,7 @@ add_if vif(clk, reset);
 
 adder DUT(
    .clk(vif.clk),
-   .reset(vif.reset)
+ .reset(vif.reset),
    .in1(vif.ip1),
    .in2(vif.ip2),
    .out(vif.out)
