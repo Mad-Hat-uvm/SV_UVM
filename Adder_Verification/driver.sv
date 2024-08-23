@@ -20,7 +20,7 @@ task reset_dut();
  
 endtask
 
-  function void build_phase(uvm_phase phase);
+  virtual function void build_phase(uvm_phase phase);
     super.build_phase(phase);
     
     req = seq_item::type_id::create("req");
