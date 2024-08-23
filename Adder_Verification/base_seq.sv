@@ -8,8 +8,14 @@ class base_seq extends uvm_sequence#(seq_item);
   endfunction
 
   task body();
-    `uvm_info(get_type_name(), "Base seq: Inside Body", UVM_LOW);
-    `uvm_do(req);
+    req = seq_item::type_id::create("req");
+     repeat(10)begin
+      start_item(req);
+    `uvm_info(get_type_name(), $sformatf("Data sent to Driver ip1: %0d,ip2: %d",req.ip1, req.ip2), UVM_NONE);
+    req.randomize();
+    finish_item(req);
+    end
+
   endtask
   
 endclass
