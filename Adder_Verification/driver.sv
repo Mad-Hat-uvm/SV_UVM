@@ -30,13 +30,14 @@ endtask
   endfunction
 
   task run_phase(uvm_phase phase);
-    
+    reset_dut();
     forever begin
       seq_item_port.get_next_item(req);
-      `uvm_info(get_type_name(), $sformatf("ip1 = %0d, ip2 = %0d", req.ip1, req.ip2), UVM_LOW);
-       vif.ip1 <= req.ip1;
-       vif.ip2 <= req.ip2;
+      vif.ip1 <= req.ip1;
+      vif.ip2 <= req.ip2;
+      `uvm_info(get_type_name(), $sformatf("Trigger DUT ip1 = %0d, ip2 = %0d", req.ip1, req.ip2), UVM_NONE);
       seq_item_port.item_done();
+      repeat(2)@(posedge vif.clk);
     end
   endtask
   
