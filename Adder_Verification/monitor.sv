@@ -10,7 +10,7 @@ class monitor extends uvm_monitor;
     item_collect_port = new("Write", this);
   endfunction
 
-  function void build_phase(uvm_phase phase);
+  virtual function void build_phase(uvm_phase phase);
     super.build_phase(phase);
     mon_item = seq_item::type_id::create("TRANS");
     if(!uvm_config_db#(virtual add_if) :: get(this, "", "vif", vif))
