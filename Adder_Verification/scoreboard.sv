@@ -21,7 +21,7 @@ class scoreboard extends uvm_scoreboard;
   task run_phase(uvm_phase phase);
     seq_item sb_item;
     forever begin
-      wait(item_q.size > 0) begin
+      wait(item_q.size > 0);
 
         if(item_q.size > 0) begin
           sb_item = item_q.pop_front();
@@ -30,7 +30,7 @@ class scoreboard extends uvm_scoreboard;
             `uvm_info(get_type_name(), $sformatf("Matched: ip1 = %0d, ip2 = %0d , out = %0d",sb_item.ip1, sb_item.ip2, sb_item.out), UVM_LOW);
           end
           else begin
-            `uvm_error(get_type_name(), $sformatf("Not Matched: ip1 = %0d, ip2 = %0d , out = %0d",sb_item.ip1, sb_item.ip2, sb_item.out);
+            `uvm_error(get_type_name(), $sformatf("Not Matched: ip1 = %0d, ip2 = %0d , out = %0d",sb_item.ip1, sb_item.ip2, sb_item.out));
           end
          $display("--------------------------------------------------------------------------------------------------------------------------------");
       end
