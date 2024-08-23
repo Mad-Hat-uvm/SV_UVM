@@ -22,7 +22,7 @@ class base_test extends uvm_test;
 
     repeat(10)begin
       #5;
-      bseq.start(env_0.agt.sqr);
+      bseq.start(env_o.agt.sqr);
     end
     phase.drop_objection(this);
 
