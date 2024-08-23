@@ -9,7 +9,7 @@ class active_agent extends uvm_agent;
     super.new(name, parent);
   endfunction
 
-  function void build_phase(uvm_phase phase);
+  virtual function void build_phase(uvm_phase phase);
     super.build_phase(phase);
     if(get_is_active() == UVM_ACTIVE) begin
       drv = driver::type_id::create("drv", this);
