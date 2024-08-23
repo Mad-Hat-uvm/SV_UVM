@@ -22,6 +22,9 @@ endtask
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
+    
+    req = seq_item::type_id::create("req");
+
     if(!uvm_config_db#(virtual add_if) :: get(this, "", "vif", vif))
       `uvm_fatal(get_type_name(), "Interface not set at top level");
   endfunction
