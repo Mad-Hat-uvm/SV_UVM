@@ -5,10 +5,10 @@ import uvm_pkg::*;
 `include "base_test.sv"
 
 module tb_top;
- bit clk;
-bit reset;
+ bit clk = 0;
+bit reset = 0;
 
-always #2 clk = ~clk;
+always #10 clk = ~clk;
 
 initial begin
  reset = 1;
@@ -29,7 +29,7 @@ adder DUT(
 initial begin
   uvm_config_db#(virtual add_if)::set(uvm_root::get(), "*", "vif", vif);
  $dumpfile("dump.vcd");
- $dumpvars(0);
+ $dumpvars;
 end
 
 initial begin
