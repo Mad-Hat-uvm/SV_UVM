@@ -16,7 +16,7 @@ class active_agent extends uvm_agent;
       sqr = seqr::type_id::create("sqr", this);
       `uvm_info(get_type_name(), "This is a Active Agent", UVM_LOW);
     end
-      mon = monitor::type_id::create("drv", this);
+    mon = monitor::type_id::create("mon", this);
   endfunction
 
   function void connect_phase(uvm_phase phase);
