@@ -8,14 +8,14 @@ class env extends uvm_env;
     super.new(name, parent);
   endfunction
 
-  function void build_phase(uvm_phase phase);
+  virtual function void build_phase(uvm_phase phase);
     super.build_phase(phase);
 
     agt = active_agent::type_id::create("agt", this);
     sb = scoreboard::type_id::create("sb", this);
   endfunction
 
-  function void connect_phase(uvm_phase phase);
+  virtual function void connect_phase(uvm_phase phase);
     agt.mon.item_collect_port.connect(sb.item_collect_export);
   endfunction
   
