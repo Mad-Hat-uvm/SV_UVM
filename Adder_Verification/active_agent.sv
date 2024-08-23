@@ -13,7 +13,7 @@ class active_agent extends uvm_agent;
     super.build_phase(phase);
     if(get_is_active() == UVM_ACTIVE) begin
       drv = driver::type_id::create("drv", this);
-      sqr = seqr::type_id::create("drv", this);
+      sqr = seqr::type_id::create("sqr", this);
       `uvm_info(get_type_name(), "This is a Active Agent", UVM_LOW);
     end
       mon = monitor::type_id::create("drv", this);
