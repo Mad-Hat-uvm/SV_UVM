@@ -3,6 +3,7 @@ class scoreboard extends uvm_scoreboard;
  
   uvm_analysis_imp #(seq_item, scoreboard) item_collect_export;
   seq_item item_q[$];
+  seq_item sb_item;
 
   function new(string name = "monitor", uvm_component parent = null);
     super.new(name, parent);
@@ -11,14 +12,14 @@ class scoreboard extends uvm_scoreboard;
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
+    sb_item = seq_item::type_id::create("TRANS");
   endfunction
 
-  function void write(seq_item req);
+  function void write(input seq_item req);
     item_q.push_back(req);
   endfunction
 
   task run_phase(uvm_phase phase);
-    seq_item sb_item;
     forever begin
       wait(item_q.size > 0);
 
