@@ -4,7 +4,7 @@ module adder(input clk,
              input [7:0] in2,
              output reg [8:0] out);
 
-  always @(posedge clk or posedge reset)begin
+  always @(posedge clk)begin
     if(reset)
       out <= 0;
     else
