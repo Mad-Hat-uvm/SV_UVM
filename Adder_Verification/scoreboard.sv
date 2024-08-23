@@ -14,7 +14,6 @@ class scoreboard extends uvm_scoreboard;
   endfunction
 
   function void write(seq_item req);
-    `uvm_info(get_type_name(), $sformatf("Received transaction = %s", req), UVM_LOW);
     item_q.push_back(req);
   endfunction
 
