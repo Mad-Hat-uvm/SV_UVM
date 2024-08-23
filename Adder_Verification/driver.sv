@@ -2,10 +2,17 @@ class driver extends uvm_driver#(seq_item);
   `uvm_component_utils(driver)
 
   virtual add_if vif;
-  
+  seq_item req;
+
   function new(string name = "driver", uvm_component parent = null);
     super.new(name, parent);
   endfunction
+
+/////////////////////reset logic//////////////////////
+task reset_dut();
+ vif.reset <= 1'b1;
+ 
+endtask
 
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
@@ -14,7 +21,7 @@ class driver extends uvm_driver#(seq_item);
   endfunction
 
   task run_phase(uvm_phase phase);
-    seq_item req;
+    
     forever begin
       seq_item_port.get_next_item(req);
       `uvm_info(get_type_name(), $sformatf("ip1 = %0d, ip2 = %0d", req.ip1, req.ip2), UVM_LOW);
