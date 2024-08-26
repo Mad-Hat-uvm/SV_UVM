@@ -13,7 +13,7 @@ task reset_dut();
 
  vif.reset <= 1'b1;
  vif.ip1   <= 0;
- vif.ip2.  <= 0;
+ vif.ip2   <= 0;
  repeat(5) @(posedge vif.clk);
  vif.reset <= 1'b0;
  `uvm_info(get_type_name(), "Reset Done", UVM_NONE);
