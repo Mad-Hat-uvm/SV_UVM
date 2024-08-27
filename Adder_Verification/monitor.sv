@@ -25,7 +25,6 @@ class monitor extends uvm_monitor;
       mon_item.ip2 <= vif.ip2;
       mon_item.out <= vif.out;
       `uvm_info(get_type_name(), $sformatf("ip1 = %0d, ip2 = %0d, out: %d", mon_item.ip1, mon_item.ip2, mon_item.out), UVM_NONE);
-      @(posedge vif.clk);
       item_collect_port.write(mon_item);
     end
   endtask
