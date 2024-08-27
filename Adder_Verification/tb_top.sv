@@ -1,3 +1,5 @@
+// Code your testbench here
+// or browse Examples
 `include "uvm_macros.svh"
 import uvm_pkg::*;
 
@@ -5,22 +7,19 @@ import uvm_pkg::*;
 `include "base_test.sv"
 
 module tb_top;
- bit clk = 0;
-bit reset = 0;
-
-always #10 clk = ~clk;
-
+  
+ add_if vif();
+  
 initial begin
- reset = 1;
- #5;
- reset = 0;
+ vif.clk = 0;
+ vif.reset = 0;
 end
 
-add_if vif(clk, reset);
+always #10 vif.clk = ~vif.clk;
 
 adder DUT(
    .clk(vif.clk),
- .reset(vif.reset),
+   .reset(vif.reset),
    .in1(vif.ip1),
    .in2(vif.ip2),
    .out(vif.out)

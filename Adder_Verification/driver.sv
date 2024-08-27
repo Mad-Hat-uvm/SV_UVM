@@ -13,7 +13,7 @@ task reset_dut();
 
  vif.reset <= 1'b1;
  vif.ip1   <= 0;
- vif.ip2.  <= 0;
+ vif.ip2   <= 0;
  repeat(5) @(posedge vif.clk);
  vif.reset <= 1'b0;
  `uvm_info(get_type_name(), "Reset Done", UVM_NONE);
@@ -33,10 +33,14 @@ endtask
     reset_dut();
     forever begin
       seq_item_port.get_next_item(req);
+      
       vif.ip1 <= req.ip1;
       vif.ip2 <= req.ip2;
-      `uvm_info(get_type_name(), $sformatf("Trigger DUT ip1 = %0d, ip2 = %0d", req.ip1, req.ip2), UVM_NONE);
+      
       seq_item_port.item_done();
+      
+      `uvm_info(get_type_name(), $sformatf("Trigger DUT ip1 = %0d, ip2 = %0d", req.ip1, req.ip2), UVM_NONE);
+      
       repeat(2)@(posedge vif.clk);
     end
   endtask

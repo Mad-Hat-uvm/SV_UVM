@@ -2,8 +2,6 @@
 
 `include "base_seq.sv"
 
-`include "seqr.sv"
-
 `include "driver.sv"
 
 `include "monitor.sv"
