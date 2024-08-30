@@ -17,6 +17,7 @@ class counter_seq extends uvm_sequence#(counter_trans);
       end 
       else begin
         assert(req.randomize());
+        txn_num++;
       end
       `uvm_info(get_type_name(), $sformatf("Data sent to Driver rst: %0d, load: %d, data_in: %d",req.rst, req.load, req.data_in), UVM_NONE);
     finish_item(req);
