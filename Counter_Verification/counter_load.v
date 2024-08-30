@@ -1,6 +1,6 @@
 module counter_load(
              input logic clk,
-             input logic reset,
+             input logic rst,
              input logic load,
              input logic [3:0] data_in,
              output logic [3:0] data_out
