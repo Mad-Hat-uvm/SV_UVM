@@ -33,11 +33,14 @@ class counter_input_driver extends uvm_driver#(counter_trans);
   endtask : run_phase
 
   virtual task send_to_dut(counter_trans trans_packet);
+    int i = 1;
     @(drv_vif.driver_cb); // Synchronize with the driver's clocking block
+    `uvm_info(get_type_name(),"Driver transaction no.: %0d",i);
      drv_vif.driver_cb.data_in <= trans_packet.data_in; // Assign transaction data to DUT
     `uvm_info(get_type_name(), $sformatf("DATA_IN = %d", trans_packet.data_in), UVM_LOW);
      drv_vif.driver_cb.rst <= trans_packet.rst;
      drv_vif.driver_cb.load <= trans_packet.load;
+     i++;
   endtask : send_to_dut
   
 endclass
