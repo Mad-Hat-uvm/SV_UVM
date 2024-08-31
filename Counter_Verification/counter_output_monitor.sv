@@ -18,6 +18,7 @@ class counter_output_monitor extends uvm_monitor;
     endfunction
   
     virtual function void connect_phase(uvm_phase phase);
+        super.connect_phase(phase);
       rd_mon_vif = m_cfg.vif; // Connect the virtual interface for input monitoring
     endfunction
   
