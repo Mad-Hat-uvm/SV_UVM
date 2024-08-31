@@ -2,14 +2,13 @@ class counter_input_monitor extends uvm_monitor;
   `uvm_component_utils(counter_input_monitor)
 
   virtual counter_inf.INPUT_MON mon_vif;
-  uvm_analysis_port #(counter_trans) item_collect_port;
+  uvm_analysis_port #(counter_trans) monitor_output;
   counter_trans drv2mon_pkt; //transaction object to capture monitored data
   counter_env_cfg m_cfg; //Environment configuration object
 
-  static 
   function new(string name = "counter_input_monitor", uvm_component parent = null);
     super.new(name, parent);
-    item_collect_port = new("Write", this);
+    monitor_output = new("Write", this);
   endfunction
 
   virtual function void build_phase(uvm_phase phase);
@@ -44,7 +43,7 @@ class counter_input_monitor extends uvm_monitor;
 
     `uvm_info(get_type_name(), $sformatf("Input monitor has captured the following transaction: \n%s", drv2mon_pkt.sprint()), UVM_LOW);
 
-    item_collect_port.write(drv2mon_pkt);    
+    monitor_output.write(drv2mon_pkt);    
     end
   endtask : monitor
   
