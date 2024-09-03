@@ -37,7 +37,7 @@ class counter_output_monitor extends uvm_monitor;
       @(rd_mon_vif.output_mon_cb);
       `uvm_info(get_type_name(),"Monitor transaction no.: %0d",i);
      
-      output_mon_pkt.data_out <= rd_mon_vifout.data_out;
+      output_mon_pkt.data_out <= rd_mon_vif.output_mon_cb.data_out;
       
       `uvm_info(get_type_name(), $sformatf("DATA_OUT = %d", output_mon_pkt.data_out), UVM_LOW);
   
