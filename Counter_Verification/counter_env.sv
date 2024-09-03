@@ -14,6 +14,9 @@ class counter_env extends uvm_env;
   virtual function void build_phase(uvm_phase phase);
     super.build_phase(phase);
 
+    if(!uvm_config_db#(counter_env_cfg) :: get(this, "", "counter_env_cfg", m_cfg))
+        `uvm_fatal(get_type_name(), "Cannot get() m_cfg from uvm_config_db");
+    
     if(m_cfg.has_input_agent) begin
     input_agent  = counter_input_agent::type_id::create("input_agent", this);
     end
