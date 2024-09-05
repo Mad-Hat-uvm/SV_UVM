@@ -86,6 +86,22 @@ class counter_scoreboard extends uvm_scoreboard;
     end
   endtask : run_phase
 
+  task ref_model_logic();
+    if(input_mon_pkt.rst || input_mon_pkt.load && input_mon_pkt.data_in >= 13)) begin
+     expected_output_pkt.data_out = 4'b0;
+    end
+    else if (input_mon_pkt.load) begin
+     expected_output_pkt.data_out = input_mon_pkt.data_in;
+    end
+    else if(expected_output_pkt.data_out >= 13) begin
+     expected_output_pkt.data_out = 4'b0;
+    end
+    else begin
+      expected_output_pkt.data_out = expected_output_pkt.data + 1;
+    end
+  end
+  endtask
+
   virtual task validate_output() ;
     if (!expected_output_pkt.compare(output_mon_pkt)) begin:
       `uvm_error(get_type_name(), "Data Mismatch");
@@ -105,7 +121,8 @@ class counter_scoreboard extends uvm_scoreboard;
 
   function void report_phase(uvm_phase phase);
     $display("\n---------------------SCOREBOARD-----------------------\n") ;
-    $display("Input monitor packet count = %");
+    $display("Input monitor packet count = %0d, Output monitor packet count = %0d, Number of successfull comparisons = %0d\n", input_mon_pkt_cnt, output_mon_pkt_cnt, data_verified);
+    $display("---------------------------------------------\n");
   endfunction
 
  
