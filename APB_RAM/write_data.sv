@@ -14,6 +14,7 @@ class write_data extends uvm_sequence# (transaction);
             start_item(tr);
             assert(tr.randomize);
             tr.op = writed;
+            finish_item(tr);
          end
     endtask
 endclass
