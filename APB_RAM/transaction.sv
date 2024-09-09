@@ -23,6 +23,7 @@ class transaction extends uvm_sequence_item;
         `uvm_object_utils_end
 
     constraint addr_c { PADDR <= 31; }
+    constraint addr_c_err {PADDR > 31; }
 
     function new(string name = "transaction");
         super.new(name);
