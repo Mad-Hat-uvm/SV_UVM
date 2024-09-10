@@ -55,11 +55,11 @@ class driver extends uvm_driver #(transaction);
             vif.pwrite  <= 1'b1;
             @(posedge vif.pclk);
             vif.penable <= 1'b1;
-            `uvm_info("DRV", $sformatf("mode:%0s, addr:%0d, wdata:%0d, rdata:%0d",tr.op,tr.PADDR,tr.PWDATA,tr.PRDATA));
+            `uvm_info("DRV", $sformatf("mode:%0s, addr:%0d, wdata:%0d, rdata:%0d",tr.op,tr.PADDR,tr.PWDATA,tr.PRDATA),UVM_NONE);
             @(negedge vif.pready);
             vif.penable <= 1'b0;
             tr.PSLVERR  <= vif.pslverr;
-            `uvm_info("DRV", $sformatf("mode:%0s, addr:%0d, wdata:%0d, rdata:%0d, slverr:%0d",tr.op,tr.PADDR,tr.PWDATA,tr.PRDATA,tr.PSLVERR));
+            `uvm_info("DRV", $sformatf("mode:%0s, addr:%0d, wdata:%0d, rdata:%0d, slverr:%0d",tr.op,tr.PADDR,tr.PWDATA,tr.PRDATA,tr.PSLVERR),UVM_NONE);
          end
 
          else if(tr.op == readd) begin
@@ -69,12 +69,12 @@ class driver extends uvm_driver #(transaction);
             vif.pwrite  <= 1'b0;
             @(posedge vif.pclk);
             vif.penable <= 1'b1;
-            `uvm_info("DRV", $sformatf("mode:%0s, addr:%0d, wdata:%0d, rdata:%0d",tr.op,tr.PADDR,tr.PWDATA,tr.PRDATA));
+            `uvm_info("DRV", $sformatf("mode:%0s, addr:%0d, wdata:%0d, rdata:%0d",tr.op,tr.PADDR,tr.PWDATA,tr.PRDATA),UVM_NONE);
             @(negedge vif.pready);
             vif.penable <= 1'b0;
             tr.PRDATA   <= vif.prdata;
             tr.PSLVERR  <= vif.pslverr;
-            `uvm_info("DRV", $sformatf("mode:%0s, addr:%0d, wdata:%0d, rdata:%0d, slverr:%0d",tr.op,tr.PADDR,tr.PWDATA,tr.PRDATA,1'b0;));
+            `uvm_info("DRV", $sformatf("mode:%0s, addr:%0d, wdata:%0d, rdata:%0d, slverr:%0d",tr.op,tr.PADDR,tr.PWDATA,tr.PRDATA,tr.PSLVERR),UVM_NONE);
          end
         seq_item_port.item_done(tr);
      end
