@@ -14,8 +14,8 @@ class test extends uvm_test;
     write_err werr;
     read_err rerr;
 
-    virtual function void build_phase(uvm_phase) phase;
-        super.build_phase(uvm_phase phase);
+    virtual function void build_phase(uvm_phase phase);
+        super.build_phase(phase);
         e       = env::type_id::create("env",this);
         rst_dut = reset_dut::type_id::create("rst_dut",this);
         wdata   = write_data::type_id::create("wdata",this);

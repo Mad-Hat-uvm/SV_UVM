@@ -2,15 +2,15 @@ typedef enum bit [1:0]  {readd = 0, writed = 1, rst = 2} oper_mode;
 
 class transaction extends uvm_sequence_item;
 
-    rand                 oper_mode op;
-    logic                PWRITE;
-    rand logic           PADDR;
-    rand logic           PWDATA;
+    rand                       oper_mode op;
+    logic                      PWRITE;
+    rand logic    [31:0]       PADDR;
+    rand logic    [31:0]      PWDATA;
 
     //Output signals of a DUT for APB UART's transaction
-    logic                PREADY;
-    logic                PSLVERR;
-    logic                PRDATA;
+    logic                     PREADY;
+    logic                     PSLVERR;
+    logic         [31:0]      PRDATA;
 
         `uvm_object_utils_begin(transaction)
         `uvm_field_int (PWRITE,UVM_ALL_ON)

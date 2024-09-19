@@ -6,7 +6,7 @@ class mon extends uvm_monitor;
     transaction tr;
 
     function new(string name = "drv", uvm_component parent = null);
-        super.new(path, parent);
+        super.new(name, parent);
     endfunction
 
     virtual function void build_phase(uvm_phase phase);

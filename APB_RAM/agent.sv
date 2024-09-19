@@ -11,14 +11,14 @@ class agent extends uvm_agent;
     mon m;
     uvm_sequencer #(transaction) seqr;
 
-    virtual function void build_phase(uvm_phase) phase;
-        super.build_phase(uvm_phase phase);
+    virtual function void build_phase(uvm_phase phase);
+        super.build_phase(phase);
         cfg = apb_config::type_id::create("cfg");
         m   = mon::type_id::create("m", this);
 
-        if(apb_cfg.is_active == UVM_ACTIVE) begin
+        if(cfg.is_active == UVM_ACTIVE) begin
         d   = driver::type_id::create("d",this);
-        seqr = uvm_seqr::type_id::create("seqr", this);
+        seqr = uvm_sequencer#(transaction)::type_id::create("seqr", this);
         end
     endfunction
 
