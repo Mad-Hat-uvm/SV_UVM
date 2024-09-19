@@ -1,3 +1,8 @@
+`include "uvm_macros.svh"
+import uvm_pkg::*;
+
+`include "package.sv"
+
 module tb;
 
     apb_if vif();

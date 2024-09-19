@@ -46,6 +46,7 @@ class driver extends uvm_driver #(transaction);
             vif.pwrite  <= 1'b0;
             vif.penable <= 1'b0;
             @(posedge vif.pclk);
+        end
          
         else if(tr.op == writed) begin
             vif.psel    <= 1'b1;

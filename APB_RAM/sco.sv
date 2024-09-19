@@ -1,8 +1,8 @@
 class sco extends uvm_scoreboard;
     `uvm_component_utils(sco)
 
-    uvm_analysis_imp(transaction, sco) recv;
-    bit [31:0] arr[32] = `{default:0};
+    uvm_analysis_imp#(transaction, sco) recv;
+    bit [31:0] arr[32] = '{default:0};
     bit [31:0] addr    = 0;
     bit [31:0] data_rd = 0;
 
@@ -34,10 +34,12 @@ class sco extends uvm_scoreboard;
                 end
                 else begin
                     data_rd = arr[tr.PADDR];
-                    if(data_rd == tr.PRDATA) 
+                    if(data_rd == tr.PRDATA) begin
                     `uvm_info("SCO",$sformatf("DATA MATCHED: addr:%0d, rdata: %0d",tr.PADDR,tr.PRDATA),UVM_NONE);
-                else
+                    end
+                    else begin
                     `uvm_info("SCO",$sformatf("TEST FAILED: addr:%0d, rdata: %0d, data_rd_arr",tr.PADDR,tr.PRDATA,arr[tr.PADDR]),UVM_NONE);
+                    end
                 end
             end
     $display("----------------------------------------------------------------------------------------------------------------------------");   

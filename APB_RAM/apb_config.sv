@@ -1,5 +1,5 @@
 class apb_config extends uvm_object;  //configuration of environment
-    `uvm_object_utils(counter_env_cfg)
+    `uvm_object_utils(apb_config)
 
       function new(string name = "apb_config");
         super.new(name);
