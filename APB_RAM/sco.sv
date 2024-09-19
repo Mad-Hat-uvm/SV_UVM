@@ -20,7 +20,7 @@ class sco extends uvm_scoreboard;
             `uvm_info("SCO","SYSTEM RESET DETECTED", UVM_NONE);
         end
         else if(tr.op == writed) begin
-            if(PSLVERR == 1'b1) begin
+            if(tr.PSLVERR == 1'b1) begin
                 `uvm_info("SCO","SLV ERROR during WRITE OP", UVM_NONE);
             end
             else begin
@@ -29,7 +29,7 @@ class sco extends uvm_scoreboard;
             end
         end
             else if (tr.op == readd)begin
-                if(PSLVERR == 1'b1) begin
+                if(tr.PSLVERR == 1'b1) begin
                     `uvm_info("SCO","SLV ERROR during READ OP", UVM_NONE);
                 end
                 else begin

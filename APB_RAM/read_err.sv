@@ -1,6 +1,8 @@
 class read_err extends uvm_sequence# (transaction);
     `uvm_object_utils(read_err)
 
+    transaction tr;
+    
     function new(string name = "read_err");
         super.new(name);
     endfunction

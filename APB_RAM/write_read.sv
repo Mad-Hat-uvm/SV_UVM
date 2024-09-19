@@ -1,6 +1,8 @@
 class write_read extends uvm_sequence# (transaction);
     `uvm_object_utils(write_read)
 
+    transaction tr;
+
     function new(string name = "write_read");
         super.new(name);
     endfunction

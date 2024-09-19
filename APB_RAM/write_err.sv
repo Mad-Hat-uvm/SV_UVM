@@ -1,6 +1,8 @@
 class write_err extends uvm_sequence# (transaction);
     `uvm_object_utils(write_err)
 
+    transaction tr;
+
     function new(string name = "write_err");
         super.new(name);
     endfunction

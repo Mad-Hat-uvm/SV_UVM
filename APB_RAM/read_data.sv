@@ -1,6 +1,8 @@
 class read_data extends uvm_sequence# (transaction);
     `uvm_object_utils(read_data)
 
+    transaction tr;
+
     function new(string name = "read_data");
         super.new(name);
     endfunction

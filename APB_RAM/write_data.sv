@@ -1,6 +1,8 @@
 class write_data extends uvm_sequence# (transaction);
     `uvm_object_utils(write_data)
 
+    transaction tr;
+
     function new(string name = "write_data");
         super.new(name);
     endfunction
