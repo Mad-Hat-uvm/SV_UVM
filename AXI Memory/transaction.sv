@@ -1,7 +1,7 @@
 `include "uvm_macros.svh"
 import uvm_pkg::*;
 
-typedef enum bit [2:0] {wr_rdfixed = 0, wrrdincr = 1, wrrdwrap = 2, wrrderrfix = 3, rstdut = 4 } oper_mode;
+typedef enum bit [2:0] {wrrdfixed = 0, wrrdincr = 1, wrrdwrap = 2, wrrderrfix = 3, rstdut = 4 } oper_mode;
 
 class transaction extends uvm_sequence_item;
     `uvm_object_utils(transaction);
