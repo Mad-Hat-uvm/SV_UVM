@@ -14,7 +14,7 @@ class valid_wrrd_incr extends uvm_sequence# (transaction);
         assert(tr.randomize);
          tr.op = wrrdincr;
          tr.awlen = 7;
-         tr.awburst = 0;
+         tr.awburst = 1;
          tr.awsize  = 2;
 
         finish_item(tr);
