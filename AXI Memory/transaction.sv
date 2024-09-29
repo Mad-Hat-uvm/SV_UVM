@@ -28,7 +28,7 @@ class transaction extends uvm_sequence_item;
    //Write data channel//
    
         bit wvalid;
-   rand bit [3:0] wid;
+        bit [3:0] wid;
    rand bit [31:0] wdata;
    rand bit [3:0] wstrb;
         bit wlast;
