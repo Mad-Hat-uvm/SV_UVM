@@ -1,7 +1,7 @@
 class fifo_scoreboard extends uvm_scoreboard;
     `uvm_component_utils(fifo_scoreboard);
 
-    virtual fifo_if.sb vif;     //Use the drv modport
+    virtual fifo_if.sb vif;     //Use the sb modport
     uvm_analysis_imp#(fifo_transaction, fifo_scoreboard) ap;
     queue#(bit [7:0]) expected_fifo;
 
