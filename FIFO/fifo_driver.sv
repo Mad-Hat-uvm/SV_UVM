@@ -7,10 +7,18 @@ class fifo_driver extends uvm_driver #(fifo_transaction);
         super.new(name, parent);
     endfunction
 
+    function void build_phase(uvm_phase phase);
+        super.build_phase(phase);
+        if(!uvm_config_db#(virtual fifo_if.drv)::get(this, "", "vif", vif))
+         `uvm_fatal("NOVIF", "No virtual interface for driver found via uvm_config_db");
+    endfunction
+
     task run_phase(uvm_phase phase);
         fifo_transaction tr;
 
         forever begin
+            tr = fifo_transaction::type_id::create("tr", this);
+
             seq_item_port.get_next_item(tr);
 
             //Drive the signals via the vif(virtual interface) using modports
@@ -29,8 +37,13 @@ class fifo_driver extends uvm_driver #(fifo_transaction);
                 `uvm_warning("FIFO EMPTY", "FIFO is empty, cannot read");
             end
 
+            //Capture the read data after issuing the read command
+            if(tr.rd_en == 1 && !vif.empty) begin
+                tr.rd_data < vif.rd_data;
+            end
+
             seq_item_port.item_done();
         end
     endtask
-    
+
 endclass
