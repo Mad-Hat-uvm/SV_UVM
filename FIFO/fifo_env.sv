@@ -1,8 +1,8 @@
 class fifo_env extends uvm_env;
     `uvm_component_utils(fifo_env);
 
-    fifo_driver drv;
-    fifo_monitor mon;
+    fifo_write_agent write_agent;
+    fifo_read_agent read_agent;
     fifo_scoreboard sb;
     fifo_coverage cov;
 
@@ -13,21 +13,21 @@ class fifo_env extends uvm_env;
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         
-        drv = fifo_driver::type_id::create("drv", this);
-        mon = fifo_monitor::type_id::create("mon", this);
-        sb  = fifo_scoreboard::type_id::create("sb", this);
-        cov = fifo_coverage::type_id::create("cov", this);
+        write_agent = fifo_write_agent::type_id::create("write_agent", this);
+        read_agent  = fifo_read_agent::type_id::create("read_agent", this);
+        sb          = fifo_scoreboard::type_id::create("sb", this);
+        cov         = fifo_coverage::type_id::create("cov", this);
 
     endfunction
 
     function void connect_phase(uvm_phase phase);
         super.connect_phase(uvm_phase phase);
 
-        //Connect monitor's analysis port to the scoreboard's analysis imp
-        mon.ap.connect(sb.ap);
+       write_agent.mon.ap.connect(sb.write_ap);
+       write_agent.mon.ap.connect(cov.analysis_export);
 
-        //Connect monitor's analysis port to the coverage's analysis export
-        mon.ap.connect(cov.analysis_export);
+       read_agent.mon.ap.connect(sb.read_ap);
+       read_agent.mon.ap.connect(cov.analysis_export);
     endfunction
     
 endclass
