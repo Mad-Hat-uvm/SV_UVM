@@ -28,7 +28,7 @@ class fifo_read_monitor extends uvm_monitor;
            tr.wr_en   =  vif.wr_en;
 
            //Write the transaction into analysis port for other components
-           ap.write(tr);
+           ap.read(tr);
            `uvm_info(get_type_name(), $sformatf("Monitored read data: %0h", tr.wr_data), UVM_MEDIUM);
          end
         end
