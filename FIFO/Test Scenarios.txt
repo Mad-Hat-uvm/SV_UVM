@@ -1,0 +1,22 @@
+ of Test Scenarios
+
+Here’s a structured approach to the test scenarios, including individual test cases that can be implemented in UVM:
+
+	1.	Basic Functionality Test
+	•	Write a series of known data to the FIFO and read them back.
+	2.	Overflow Test
+	•	Attempt to write more data than the FIFO can hold and check for the correct overflow handling.
+	3.	Underflow Test
+	•	Attempt to read from the FIFO when it is empty and check for underflow handling.
+	4.	Full and Empty Flags Test
+	•	Verify that the full and empty flags are set correctly during various write and read operations.
+	5.	Random Write and Read Operations
+	•	Perform a series of random writes and reads to test the FIFO under varied conditions.
+	6.	Sequential Writes with Delays
+	•	Write sequential data with controlled delays between operations.
+	7.	Mixed Operations
+	•	Perform interleaved reads and writes to test the FIFO’s response to simultaneous operations.
+	8.	Stress Test
+	•	Continuously write and read data to/from the FIFO to verify its robustness under high-frequency operations.
+	9.	Edge Case Testing
+	•	Fill the FIFO to its maximum capacity and read a few entries to ensure it operates correctly.
