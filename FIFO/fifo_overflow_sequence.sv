@@ -9,8 +9,6 @@ class fifo_overflow_sequence extends uvm_sequence #(fifo_transaction);
 
     task body();
         fifo_transaction tr;
-
-        //Basic Write-Read Pattern
         for(int i = 0;i < 16, i++) begin //Assuming FIFO depth is 16
             //Write transaction
             tr = fifo_transaction::type_id::create("tr");
