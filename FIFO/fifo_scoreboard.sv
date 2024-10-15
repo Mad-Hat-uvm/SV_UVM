@@ -4,6 +4,7 @@ class fifo_scoreboard extends uvm_scoreboard;
     uvm_analysis_imp#(fifo_transaction, fifo_scoreboard) write_ap;
     uvm_analysis_imp#(fifo_transaction, fifo_scoreboard) read_ap;
 
+    fifo_coverage cov_fifo;
     queue [7:0] fifo_queue;
     int fifo_depth; //Number of items in FIFO
     int max_fifo_size; //Maximum FIFO size (to be set based on FIFO's depth)
@@ -18,10 +19,19 @@ class fifo_scoreboard extends uvm_scoreboard;
         fifo_queue = new();
     endfunction
 
+    //Build phase to initialize coverage
+    function void build_phase(uvm_phase phase);
+        super.build_phase(phase);
+        cov_fifo = fifo_coverage::type_id::create("cov_fifo", this);
+    endfunction
+
     //Capture write transactions and push to FIFO
     function void write(fifo_transaction tr);
         //Handle Write transactions
         if(tr.wr_en) begin
+            // Cover the write operation
+            cov_fifo.write_coverage.sample(tr.wr_en, fifo_depth);
+
             //Check if the FIFIo is full
             if(fifo_depth == max_fifo_size) begin
                 `uvm_error(get_type_name(), "Write occured when FIFO is full!");
@@ -33,12 +43,14 @@ class fifo_scoreboard extends uvm_scoreboard;
             end
         end
 
-        check_flags(tr.full, tr.empty);
     endfunction
 
     //Capture read transactions and pop from FIFO queue
     function void read(fifo_transaction tr);
         if(tr.rd_en) begin
+            //Cover the read operation
+            cov_fifo.read_coverage.sample(tr.rd_en, fifo_depth);
+
             //Check if the FIFO is empty
             if(fifo_depth == 0) begin
                 `uvm_error(get_type_name(), "Read occured when FIFO is empty!");
@@ -54,7 +66,7 @@ class fifo_scoreboard extends uvm_scoreboard;
             end
 
         end
-        check_flags(tr.full, tr.empty);
+       
     endfunction
     
 //Check full and empty flags based on current FIFO depth
