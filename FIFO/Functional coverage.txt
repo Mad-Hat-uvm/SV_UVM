@@ -1,0 +1,16 @@
+Enhanced functional coverage is a critical part of the UVM testbench, especially when you want to ensure that all interesting combinations and scenarios in your FIFO design are exercised and covered. In this enhanced coverage model, we will target key aspects of the FIFO, such as:
+
+	•	Writes when the FIFO is empty, partially filled, or full.
+	•	Reads when the FIFO is empty, partially filled, or full.
+	•	The interaction between the full and empty flags.
+	•	The depth of the FIFO during various operations.
+	•	The correct operation of the read enable (rd_en) and write enable (wr_en) signals.
+
+Enhanced Functional Coverage
+
+We’ll add a functional coverage model using covergroups to monitor the important behavior of the FIFO. This will include covering scenarios for:
+
+	•	Different depths of the FIFO.
+	•	Write and read operations at various FIFO depths.
+	•	Transitions between full, empty, and partially filled states.
+	•	Correlation between write, read, and the full/empty flags.
