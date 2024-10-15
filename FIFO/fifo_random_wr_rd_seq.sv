@@ -7,19 +7,25 @@ class fifo_random_wr_rd_seq extends uvm_sequence#(fifo_transaction);
 
     task body();
         fifo_transaction tr;
+        int data_value;
 
         //Randomly generate a sequence of write and read transactions
-        repeat(20) begin
+        for(i = 0; i < 20; i++) begin
             tr = fifo_transaction::type_id::create("tr", this);
-            start_item(tr);
-
-            //Randomize wr_en, rd_en an er_data
-            if(!tr.randomize()) begin
-                `uvm_error("RANDOMIZE_FAIL","Failed to randomize transaction");
+            data_value = $urandom_range(0, 255); //Random data value
+           
+            if($urandom_range(0, 1) == 0) begin //Randomly decide to write
+                tr.data = data_value;
+                tr.wr_en = 1;
+                tr.rd_en = 0;
+                start_item(tr);
+                finish_item(tr);
+            end else begin // Randomly decide to read
+                tr.wr_en = 0;
+                tr.rd_en = 1;
+                start_item(tr);
+                finish_item(tr);
             end
-
-            finish_item(tr);
-            `uvm_info("FIFO_TEST", $sformatf("Generated transaction: wr_en: %0b, rd_en: %0b, wr_data=%0h", tr.wr_en, tr.rd_en, tr.wr_data), UVM_LOW);
         end
     endtask
 endclass
