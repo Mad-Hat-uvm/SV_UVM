@@ -21,7 +21,7 @@ class mem_ctrl_driver extends uvm_driver #(mem_ctrl_transaction);
         txn = mem_ctrl_transaction::type_id::create("txn");
         seq_item_port.get_next_item(txn);
         vif.addr     <= txn.addr;
-        vif.data     <= txn.data;
+        vif.wdata     <= txn.wdata;
         vif.we       <= txn.we;
         vif.re       <= txn.re;
         vif.is_valid <= txn.is_valid;
