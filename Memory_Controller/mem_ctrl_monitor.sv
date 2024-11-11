@@ -24,7 +24,7 @@ class mem_ctrl_monitor extends uvm_monitor;
          txn = mem_ctrl_transaction::type_id::create("txn");
          
          txn.addr     <= vif.addr;
-         txn.data     <= vif.data;
+         txn.rdata     <= vif.rdata;
          txn.we       <= vif.we;
          txn.re       <= vif.re;
          txn.is_valid <= vif.is_valid;
