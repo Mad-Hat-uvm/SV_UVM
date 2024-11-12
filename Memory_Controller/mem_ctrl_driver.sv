@@ -24,7 +24,13 @@ class mem_ctrl_driver extends uvm_driver #(mem_ctrl_transaction);
         vif.wdata     <= txn.wdata;
         vif.we       <= txn.we;
         vif.re       <= txn.re;
-        vif.is_valid <= txn.is_valid;
+       
+        wait (vif.ready);
+
+        if(tr.re) begin
+            `uvm_info("MEM_CTRL_DRIVER", $sformatf("Read_data: %0h", vif.rdata), UVM_LOW);
+        end
+        
         seq_item_done.item_done();
     end
    endtask

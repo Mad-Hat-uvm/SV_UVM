@@ -4,11 +4,11 @@ class mem_ctrl_monitor extends uvm_monitor;
     virtual mem_ctrl_if vif;
     mem_ctrl_transaction txn;
  
-    uvm_analysis_port #(mem_ctrl_transaction) analysis_port;
+    uvm_analysis_port #(mem_ctrl_transaction) ap;
 
     function new(string name = "mem_ctrl_monitor", uvm_component parent);
      super.new(name, parent);
-     analysis_port = new("analysis_port", this);
+     ap = new("ap", this);
     endfunction
  
     function void build_phase(uvm_phase phase);
@@ -28,6 +28,8 @@ class mem_ctrl_monitor extends uvm_monitor;
          txn.we       <= vif.we;
          txn.re       <= vif.re;
          txn.is_valid <= vif.is_valid;
+
+         if(txn.we || txn.re) ap.write(txn);
         
      end
     endtask
