@@ -1,39 +1,59 @@
 module fifo #(
-    parameter DATA_WIDTH = 8,
-    parameter DEPTH      = 16
+    parameter WIDTH = 8,
+    parameter DEPTH = 16,
+    parameter ADDR_WIDTH = $clog2(DEPTH)
 )(
-    input clk,
-    input reset_n,
-    input wr_en,
-    input rd_en,
-    input  [DATA_WIDTH-1:0] wr_data,
-    output [DATA_WIDTH-1:0] rd_data,
-    output full,
-    output empty
+    input logic clk,
+    input logic rst,
+
+    input logic wr_en,
+    input logic rd_en,
+    input logic [WIDTH-1:0] din,
+    input logic [WIDTH-1:0] dout,
+
+    output logic full,
+    output logic empty
 );
 
-reg [DATA_WIDTH-1:0] mem [0:DEPTH-1];
-reg [3:0] wr_ptr, rd_ptr, count;
+logic [WIDTH-1:0] mem [DEPTH-1:0];
+logic [ADDR_WIDTH-1:0] wr_ptr, rd_ptr;
+logic [ADDR_WIDTH] count;
 
-assign full    = (count == DEPTH);
-assign empty   = (count == 0);
-assign rd_data = mem[rd_ptr];
-
-always @(posedge clk or negedge reset_n)begin
-    if(!reset_n) begin
+//Write Logic
+always_ff @(posedge clk or posedge rst) begin
+    if(rst) begin
         wr_ptr <= 0;
+    end else if(wr_en && !full) begin
+        mem[wr_ptr] <= din;
+        wr_ptr <= wr_ptr + 1;
+end
+end
+
+//Read Logic
+always_ff @(posedge clk or posedge rst) begin
+    if(rst) begin
         rd_ptr <= 0;
-        count  <= 0;
-    end else begin
-        if(wr_en && !full) begin
-            mem[wr_ptr] <= wr_data;
-            wr_ptr <= wr_ptr + 1;
-            count <= count + 1;
-        end
-        if(rd_en && !empty) begin
-            rd_ptr <= rd_ptr + 1;
-            count  <= count - 1;
-        end
+    end else if(rd_en && !empty) begin
+        rd_ptr <= rd_ptr + 1;
     end
 end
+
+assign dout = mem[rd_ptr];
+
+//Counter to track number of items
+always_ff @(posedge clk or posedge rst) begin
+    if(rst) begin
+        count <= 0;
+    end else begin
+        case ({wr_en && !full, rd_en && !empty})
+            2'b10: count <= count + 1;  //Write only
+            2'b01: count <= count - 1; //rd_only
+            default: count <= count;   //No change or simultaneous read + write
+        endcase
+    end
+end
+
+assign full  = (count == DEPTH);
+assign empty = (count == 0);
+
 endmodule
