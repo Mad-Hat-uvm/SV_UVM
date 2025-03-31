@@ -1,28 +1,16 @@
 class fifo_transaction extends uvm_sequence_item;
-    
-    rand bit wr_en;
-    rand bit rd_en;
-    rand bit [7:0] wr_data;
-         bit [7:0] rd_data;
+    `uvm_object_utils(fifo_transaction)
+   rand bit [7:0] data;
+   rand bit wr_en;
+   rand bit rd_en;
+   bit [7:0] exp_data;
 
-    //Prevent both read and write from being unabled at the same time
-    constraint valid_op {!(wr_en && rd_en); }
+   function new(string name = "fifo_transaction");
+    super.new(name);
+   endfunction
 
-    //Only write if FIFO is not full and read if FIFO is not empty
-    constraint check_valid_fifo_ops {
-        wr_en == 1'b0 || !vif.full;
-        rd_en == 1'b0 || !vif.empty;
-    }
-
-    `uvm_object_utils_begin(fifo_transaction)
-        `uvm_field_int(wr_en, UVM_ALL_ON)
-        `uvm_field_int(rd_en, UVM_ALL_ON)
-        `uvm_field_int(wr_data, UVM_ALL_ON)
-        `uvm_field_int(rd_data, UVM_ALL_ON)
-    `uvm_object_utils_end
-
-    function new(string name = "fifo_transaction");
-        super.new(name);
-    endfunction
+   function string convert2string();
+    return $sformatf("wr_en = %0b, rd_en = %b, data = 0x%0h", wr_en, rd_en, data);
+   endfunction
 
 endclass
