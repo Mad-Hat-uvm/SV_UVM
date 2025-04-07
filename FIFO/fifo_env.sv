@@ -19,6 +19,7 @@ class fifo_env extends uvm_env;
 
  function void connect_phase(uvm_phase phase);
     drv.seq_item_port.connect(seqr.seq_item_export);
+    drv.drv_ap.connect(sb.sb_ref_port);
     mon.mon_ap.connect(sb.sb_port);
  endfunction
 
