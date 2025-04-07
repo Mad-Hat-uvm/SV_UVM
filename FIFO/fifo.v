@@ -1,3 +1,9 @@
+//Parameter ADDR_WIDTH is calculated using $clog2(DEPTH) to index the memory
+//The FIFO supports simultaneous read and write.
+//It uses circular buffer approach.
+//The design assumes registered output(i.e., dout is updated on clock edge)
+//On reset, pointers and counters are cleared. 
+
 module fifo #(
     parameter WIDTH = 8,
     parameter DEPTH = 16,
